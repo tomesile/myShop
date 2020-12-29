@@ -8,6 +8,7 @@ import com.tms.java.interfaces.IOutBound;
 import com.tms.java.outbound.OutBoundWithIn;
 import com.tms.java.outbound.OutBoundWithout;
 import com.tms.java.safety.Safety;
+import com.tms.java.scan.Scan;
 import com.tms.java.statistics.Statistics;
 
 public class MyShop {
@@ -15,7 +16,7 @@ public class MyShop {
     private static IOutBound outbound;
     public static void main(String[] args){
         safety();
-
+        scan();
         System.out.println("This is a shop app !");
 
         storeOperation(0,0);
@@ -78,5 +79,9 @@ public class MyShop {
         System.out.println("safety is turn on !");
         Safety.safety();
     }
-
+    public static void scan()
+    {
+        new Scan();
+        Scan.scanNow();
+    }
 }
