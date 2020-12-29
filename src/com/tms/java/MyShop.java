@@ -11,22 +11,30 @@ import com.tms.java.safety.Safety;
 import com.tms.java.statistics.Statistics;
 
 public class MyShop {
-    private IInbound inbound;
-    private IOutBound outbound;
+    private static IInbound inbound;
+    private static IOutBound outbound;
     public static void main(String[] args){
+        safety();
 
         System.out.println("This is a shop app !");
+
+        storeOperation(0,0);
+        statistics();
 
     }
     MyShop(){}
     //select a method to outbound
-    public void selectOutboundMethod(int methodId)
+    public static void  selectOutboundMethod(int methodId)
     {
         if(methodId==0) outbound=new OutBoundWithIn();
         else if(methodId==1) outbound=new OutBoundWithout();
+        else
+        {
+            outbound=new OutBoundWithout();
+        }
     }
     //select a method to inbound
-    public void selectInboundMethod(int methodId)
+    public static void selectInboundMethod(int methodId)
     {
        switch (methodId)
        {
@@ -36,25 +44,38 @@ public class MyShop {
            default:inbound=new InboundMethodRacks();break;
        }
     }
-    public void toInbound() //start to inbound
+    public static void toInbound() //start to inbound
     {
+        System.out.println("start to inbound !");
         inbound.inBoundMethod();
     }
-    public void toOutbound() //start to inbound
+    public static void toOutbound() //start to inbound
     {
+        System.out.println("start to outbound !");
         outbound.outBoundMethod();
     }
-    public void storeOperation(int storeMethod)//select inbound or outbound
+    //select inbound or outbound and select inblund methodId or outbound method
+    public static void storeOperation(int storeMethod,int methodId)
     {
-        if(storeMethod==0) toInbound();
-        else if(storeMethod==1) toOutbound();
+        if(storeMethod==0)
+        {
+            selectInboundMethod(methodId);
+            toInbound();
+        }
+        else if(storeMethod==1)
+        {
+            selectOutboundMethod(methodId);
+            toOutbound();
+        }
     }
-    public void statistics()
+    public static void statistics()
     {
+        System.out.println("statistics is turn on !");
         Statistics.statistics();
     }
-    public void safety()
+    public static void safety()
     {
+        System.out.println("safety is turn on !");
         Safety.safety();
     }
 
