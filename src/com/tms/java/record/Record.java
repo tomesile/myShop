@@ -12,7 +12,7 @@ public class Record {
     {
         System.out.println("sn:"+sn);
         putToMap(sn);
-        ProductList4Scan.del(sn);
+       // ProductList4Scan.del(sn);
         System.out.println(ProductList4Scan.getList());
     }
     public static void putToMap(String sn)
