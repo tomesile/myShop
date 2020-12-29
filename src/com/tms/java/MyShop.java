@@ -7,9 +7,13 @@ import com.tms.java.interfaces.IInbound;
 import com.tms.java.interfaces.IOutBound;
 import com.tms.java.outbound.OutBoundWithIn;
 import com.tms.java.outbound.OutBoundWithout;
+import com.tms.java.record.Record;
 import com.tms.java.safety.Safety;
 import com.tms.java.scan.Scan;
 import com.tms.java.statistics.Statistics;
+import com.tms.java.utils.ProductList4Scan;
+
+import java.util.List;
 
 public class MyShop {
     private static IInbound inbound;
@@ -19,8 +23,10 @@ public class MyShop {
         scan();
         System.out.println("This is a shop app !");
 
-        storeOperation(0,0);
+        storeOperation(1,1);
+
         statistics();
+
 
     }
     MyShop(){}
@@ -53,7 +59,12 @@ public class MyShop {
     public static void toOutbound() //start to inbound
     {
         System.out.println("start to outbound !");
-        outbound.outBoundMethod();
+        List<String> list= ProductList4Scan.getList();
+        for(int i=0;i<list.size();i++) {
+            System.out.println("processing :"+list.get(i));
+            outbound.outBoundMethod();
+             Record.toRecord(list.get(i));
+        }
     }
     //select inbound or outbound and select inblund methodId or outbound method
     public static void storeOperation(int storeMethod,int methodId)
@@ -83,5 +94,6 @@ public class MyShop {
     {
         new Scan();
         Scan.scanNow();
+        System.out.println(ProductList4Scan.getList().toString());
     }
 }
